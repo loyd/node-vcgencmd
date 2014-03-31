@@ -13,6 +13,12 @@ declare module "vcgencmd" {
     export function measureClock(clock: 'dpi'): number;
     export function measureClock(clock: string): number;
 
+    export function measureVolts(id: 'core'): number;
+    export function measureVolts(id: 'sdram_c'): number;
+    export function measureVolts(id: 'sdram_i'): number;
+    export function measureVolts(id: 'sdram_p'): number;
+    export function measureVolts(id: string): number;
+
     export function measureTemp(): number;
 
     export function codecEnabled(codec: 'H264'): boolean;

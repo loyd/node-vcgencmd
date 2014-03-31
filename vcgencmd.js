@@ -20,6 +20,21 @@ exports.measureClock = function(clock) {
 };
 
 /**
+ * Measure voltage.
+ * @param  {string} [id='core'] one of 'core', 'sdram_c', 'sdram_i', 'sdram_p'
+ * @return {number}
+ */
+exports.measureVolts = function(id) {
+    var answer = request('measure_volts ' + (id || ''));
+
+    // 'bad arguments'
+    if(answer[0] === 'b')
+        throw new Error('id is incorrect');
+
+    return parseFloat(answer.slice(5));
+};
+
+/**
  * Measure core temperature of BCM2835 SoC.
  * @return {number}
  */

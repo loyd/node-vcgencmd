@@ -19,6 +19,9 @@ Note that case matters.
 ### `measureClock(string clock) → number`
 `clock` can be one of **arm, core, h264, isp, v3d, uart, pwm, emmc, pixel, vec, hdmi, dpi**.
 
+### `measureVolts(string id) → number`
+`id` can be one of **core, sdram_c, sdram_i, sdram_p**.
+
 ### `measureTemp() → number`
 
 ### `codecEnabled(string codec) → boolean`

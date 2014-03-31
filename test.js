@@ -11,6 +11,13 @@ assert.throws(function() { lib.measureClock('Core'); }, /incorrect/);
 assert(lib.measureClock('core') > 0);
 
 /*
+    measureVolts(id)
+ */
+assert.throws(function() { lib.measureVolts('Core'); }, /incorrect/);
+assert(lib.measureVolts() > 0);
+assert(lib.measureVolts('core') > 0);
+
+/*
     measureTemp()
  */
 assert(lib.measureTemp() > 0);
