@@ -36,5 +36,9 @@ Note that case matters.
 `mem` can be **arm** or **gpu**.
 
 ## Changelog
+### v0.2.0
+* `measureVolts`
+* TS definition
+
 ### v0.1.0
 * `measureClock`, `measureTemp`, `codecEnabled`, `getConfig`, `getCamera`, `getMem`
