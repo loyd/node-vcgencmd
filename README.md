@@ -1,5 +1,5 @@
 # node-vcgencmd
-Binding for vcgencmd.
+Fast binding for vcgencmd.
 
 ## Install
     npm install vcgencmd
@@ -40,9 +40,12 @@ Note that case matters.
 ### `cacheFlush() → void`
 
 ## Changelog
+### v0.2.5
+* `getLCDInfo` and `cacheFlush`
+
 ### v0.2.0
 * `measureVolts`
 * TS definition
 
 ### v0.1.0
-* `measureClock`, `measureTemp`, `codecEnabled`, `getConfig`, `getCamera`, `getMem`
+* `measureClock`, `measureTemp`, `codecEnabled`, `getConfig`, `getCamera` and `getMem`
