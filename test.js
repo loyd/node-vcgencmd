@@ -8,19 +8,25 @@ var lib = require('./vcgencmd');
  */
 assert.throws(function() { lib.measureClock(); }, /incorrect/);
 assert.throws(function() { lib.measureClock('Core'); }, /incorrect/);
-assert(lib.measureClock('core') > 0);
+var coreClock = lib.measureClock('core');
+assert.equal(typeof coreClock, 'number');
+assert(coreClock > 0);
 
 /*
     measureVolts(id)
  */
 assert.throws(function() { lib.measureVolts('Core'); }, /incorrect/);
+var coreVolts = lib.measureVolts('core');
+assert.equal(typeof coreVolts, 'number');
+assert(coreVolts > 0);
 assert(lib.measureVolts() > 0);
-assert(lib.measureVolts('core') > 0);
 
 /*
     measureTemp()
  */
-assert(lib.measureTemp() > 0);
+var temp = lib.measureTemp();
+assert.equal(typeof temp, 'number');
+assert(temp > 0);
 
 /*
     codecEnabled(codec)
@@ -40,15 +46,18 @@ assert(Object.keys(lib.getConfig('int')).length > 0);
 /*
     getCamera()
  */
-assert.equal(typeof lib.getCamera().supported, 'boolean');
-assert.equal(typeof lib.getCamera().detected, 'boolean');
+var camera = lib.getCamera();
+assert.equal(typeof camera.supported, 'boolean');
+assert.equal(typeof camera.detected, 'boolean');
 
 /*
     getMem(mem)
  */
 assert.throws(function() { lib.getMem(); }, /incorrect/);
 assert.throws(function() { lib.getMem('test'); }, /incorrect/);
-assert.equal(typeof lib.getMem('arm'), 'number');
+var armMem = lib.getMem('arm');
+assert.equal(typeof armMem, 'number');
+assert(armMem > 0);
 
 /*
     getLCDInfo()
