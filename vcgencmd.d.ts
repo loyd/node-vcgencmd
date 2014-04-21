@@ -40,4 +40,6 @@ declare module "vcgencmd" {
     export function getMem(mem: string): number;
 
     export function getLCDInfo(): {width: number; height: number; depth: number};
+
+    export function cacheFlush(): void;
 }

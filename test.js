@@ -69,3 +69,8 @@ assert.equal(typeof lcdInfo.height, 'number');
 assert(lcdInfo.height > 0);
 assert.equal(typeof lcdInfo.depth, 'number');
 assert(lcdInfo.depth > 0);
+
+/*
+    cacheFlush()
+ */
+assert.doesNotThrow(function() { lib.cacheFlush(); });

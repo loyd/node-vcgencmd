@@ -37,6 +37,8 @@ Note that case matters.
 
 ### `getLCDInfo() → {number width, number height, number depth}`
 
+### `cacheFlush() → void`
+
 ## Changelog
 ### v0.2.0
 * `measureVolts`

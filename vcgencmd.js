@@ -129,6 +129,13 @@ exports.getLCDInfo = function() {
     };
 };
 
+/**
+ * Flush GPU's L1 cache
+ */
+exports.cacheFlush = function() {
+    request('cache_flush');
+};
+
 process.on('exit', function() {
     binding.disconnect();
 });
