@@ -49,3 +49,14 @@ assert.equal(typeof lib.getCamera().detected, 'boolean');
 assert.throws(function() { lib.getMem(); }, /incorrect/);
 assert.throws(function() { lib.getMem('test'); }, /incorrect/);
 assert.equal(typeof lib.getMem('arm'), 'number');
+
+/*
+    getLCDInfo()
+ */
+var lcdInfo = lib.getLCDInfo();
+assert.equal(typeof lcdInfo.width, 'number');
+assert(lcdInfo.width > 0);
+assert.equal(typeof lcdInfo.height, 'number');
+assert(lcdInfo.height > 0);
+assert.equal(typeof lcdInfo.depth, 'number');
+assert(lcdInfo.depth > 0);

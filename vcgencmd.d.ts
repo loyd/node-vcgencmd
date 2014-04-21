@@ -38,4 +38,6 @@ declare module "vcgencmd" {
     export function getMem(mem: 'arm'): number;
     export function getMem(mem: 'gpu'): number;
     export function getMem(mem: string): number;
+
+    export function getLCDInfo(): {width: number; height: number; depth: number};
 }

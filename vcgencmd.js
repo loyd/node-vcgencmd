@@ -116,6 +116,19 @@ exports.getMem = function(mem) {
     return parseInt(request('get_mem ' + mem).slice(4), 10);
 };
 
+/**
+ * Get height, width, and depth of the display framebuffer
+ * @return {Object} {width, height, depth}
+ */
+exports.getLCDInfo = function() {
+    var info = request('get_lcd_info').split(' ');
+    return {
+        width:  +info[0],
+        height: +info[1],
+        depth:  +info[2]
+    };
+};
+
 process.on('exit', function() {
     binding.disconnect();
 });

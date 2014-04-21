@@ -35,6 +35,8 @@ Note that case matters.
 ### `getMem(string mem) → number`
 `mem` can be **arm** or **gpu**.
 
+### `getLCDInfo() → {number width, number height, number depth}`
+
 ## Changelog
 ### v0.2.0
 * `measureVolts`
