@@ -21,5 +21,9 @@
         "url": "https://github.com/loyd/node-vcgencmd/issues"
     },
 
-    "homepage": "https://github.com/loyd/node-vcgencmd"
+    "homepage": "https://github.com/loyd/node-vcgencmd",
+
+    "dependencies": {
+        "nan": "^2.0.9"
+    }
 }
