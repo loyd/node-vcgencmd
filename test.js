@@ -3,6 +3,7 @@
 var assert = require('assert');
 var lib = require('./vcgencmd');
 
+
 /*
     measureClock(clock)
  */

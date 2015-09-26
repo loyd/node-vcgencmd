@@ -3,6 +3,7 @@
 var binding = require('./build/Release/binding');
 var request = binding.request;
 
+
 /**
  * Measure clock frequency.
  * @param  {string} clock one of 'arm', 'core', 'h264', 'isp', 'v3d', 'uart',
@@ -13,7 +14,7 @@ exports.measureClock = function(clock) {
     var answer = request('measure_clock ' + clock);
 
     // 'frequency(0)=0' or 'error=2 error_msg="Invalid arguments"'
-    if(answer[10] === '0' || answer[0] === 'e')
+    if (answer[10] === '0' || answer[0] === 'e')
         throw new Error('clock is incorrect');
 
     return +answer.slice(answer.indexOf('=') + 1);
@@ -28,7 +29,7 @@ exports.measureVolts = function(id) {
     var answer = request('measure_volts ' + (id || ''));
 
     // 'bad arguments'
-    if(answer[0] === 'b')
+    if (answer[0] === 'b')
         throw new Error('id is incorrect');
 
     return parseFloat(answer.slice(5));
@@ -48,7 +49,7 @@ exports.measureTemp = function() {
  * @return {boolean}
  */
 exports.codecEnabled = function(codec) {
-    switch(codec) {
+    switch (codec) {
         case 'H264':
         case 'MPG2':
         case 'WVC1':
@@ -70,21 +71,21 @@ exports.codecEnabled = function(codec) {
  * @return {Object|number|string}
  */
 exports.getConfig = function(config) {
-    if(!config)
+    if (!config)
         throw new Error('config is incorrect');
     
     var isNumMap = config === 'int',
         isMap = isNumMap || config === 'str',
         answer = request('get_config ' + config).trim();
 
-    if(isMap)
+    if (isMap)
         return answer.split('\n').reduce(function(res, line) {
             var pair = line.split('=');
             res[pair[0]] = isNumMap ? +pair[1] : pair[1];
             return res;
         }, {});
     else {
-        if(/unknown$/.test(answer))
+        if (/unknown$/.test(answer))
             throw new Error('config is incorrect');
 
         var pair = answer.split('=');
@@ -110,7 +111,7 @@ exports.getCamera = function() {
  * @return {number}
  */
 exports.getMem = function(mem) {
-    if(!(mem === 'arm' || mem === 'gpu'))
+    if (!(mem === 'arm' || mem === 'gpu'))
         throw new Error('mem is incorrect');
 
     return parseInt(request('get_mem ' + mem).slice(4), 10);
