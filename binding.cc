@@ -1,62 +1,59 @@
-#include <node.h>
-#include <v8.h>
+#include <nan.h>
 
 #include <bcm_host.h>
-
-using namespace v8;
 
 static VCHI_INSTANCE_T vchi;
 static VCHI_CONNECTION_T *vchi_connections;
 
 static char buf[1024];
 
-Handle<Value> Request(const Arguments& args) {
-    HandleScope scope;
+NAN_METHOD(Request) {
+    assert(info.Length() >= 1);
+    assert(info[0]->IsString());
 
-    String::AsciiValue str(args[0]);
+    v8::String::Utf8Value str(info[0]);
 
     if(vc_gencmd_send(*str) != 0) {
-        ThrowException(Exception::Error(String::New("Failed to send request")));
-        return scope.Close(Undefined());
+        Nan::ThrowError("Failed to send request");
+        return;
     }
 
     if(vc_gencmd_read_response(buf, 1024) != 0) {
-        ThrowException(Exception::Error(String::New("Failed to read response")));
-        return scope.Close(Undefined());
+        Nan::ThrowError("Failed to read response");
+        return;
     }
 
-    return scope.Close(String::New(buf));
+    info.GetReturnValue().Set(Nan::New(buf).ToLocalChecked());
 }
 
-Handle<Value> Disconnect(const Arguments& args) {
-    HandleScope scope;
+NAN_METHOD(Disconnect) {
     vc_gencmd_stop();
     if(vchi_disconnect(vchi) != 0)
-        ThrowException(Exception::Error(String::New("VCHI disconnect failed")));
+        Nan::ThrowError("VCHI disconnect failed");
 
-    return scope.Close(Undefined());
+    info.GetReturnValue().Set(Nan::Undefined());
 }
 
-void Init(Handle<Object> exports) {
+NAN_MODULE_INIT(Init) {
     bcm_host_init();
     vcos_init();
    
     if(vchi_initialise(&vchi) != 0)
-        ThrowException(Exception::Error(String::New("VCHI initialization failed")));
+        Nan::ThrowError("VCHI initialization failed");
 
     if(vchi_connect(NULL, 0, vchi) != 0)
-        ThrowException(Exception::Error(String::New("VCHI connection failed")));
+        Nan::ThrowError("VCHI connection failed");
 
     vc_vchi_gencmd_init(vchi, &vchi_connections, 1);
 
     /*
         Exports
      */
-    exports->Set(String::NewSymbol("request"),
-        FunctionTemplate::New(Request)->GetFunction());
+    Nan::Set(target, Nan::New("request").ToLocalChecked(),
+        Nan::GetFunction(Nan::New<v8::FunctionTemplate>(Request)).ToLocalChecked());
 
-    exports->Set(String::NewSymbol("disconnect"),
-        FunctionTemplate::New(Disconnect)->GetFunction());
+    Nan::Set(target, Nan::New("disconnect").ToLocalChecked(),
+        Nan::GetFunction(Nan::New<v8::FunctionTemplate>(Disconnect)).ToLocalChecked());
 }
 
 NODE_MODULE(binding, Init)
