@@ -40,6 +40,9 @@ Note that case matters.
 ### `cacheFlush() → void`
 
 ## Changelog
+### v0.3.0
+* Add >0.12 compatibility of native add-on. Thanks to [Mark Plomer](https://github.com/not-implemented).
+
 ### v0.2.5
 * `getLCDInfo` and `cacheFlush`
 
