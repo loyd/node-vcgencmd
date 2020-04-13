@@ -12,7 +12,11 @@ NAN_METHOD(Request) {
     assert(info.Length() >= 1);
     assert(info[0]->IsString());
 
+#if NODE_MODULE_VERSION >= 72
+    v8::String::Utf8Value str(v8::Isolate::GetCurrent(), info[0]);
+#else
     v8::String::Utf8Value str(info[0]);
+#endif
 
     if (vc_gencmd_send(*str) != 0) {
         Nan::ThrowError("Failed to send request");
